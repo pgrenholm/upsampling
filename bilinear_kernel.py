@@ -30,11 +30,11 @@ from keras.layers import Input, Upsampling2D, Conv2D
 (h,w,channels) = (2,2,3)
 input_layer = Input([in_height, in_width, channels])
 us = UpSampling2D(size = (h,w))(input_layer)
-ct = Conv2D(filters = channels, kernel_size = (h,w), strides=(1,1), 
+conv = Conv2D(filters = channels, kernel_size = (h,w), strides=(1,1), 
             activation = 'linear',
-            padding = 'valid', name = 'ct', use_bias = False,
+            padding = 'valid', name = 'conv', use_bias = False,
             weights = bilinear_kernel(h,w,channels, False))(us)
-model = Model(input_layer, ct)
+model = Model(input_layer, conv)
 
 #A transposed convolutional layer will need extra cropping 
 from keras.layers import Input, UpSampling2D, Conv2DTranspose, Cropping2D
